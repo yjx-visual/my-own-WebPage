@@ -5,9 +5,9 @@ useHead({
 })
 
 useSeoMeta({
-  title: '你的名字 - 个人网站',
+  title: 'Stars - 个人网站',
   description: '个人博客、项目展示与知识库',
-  ogTitle: '你的名字 - 个人网站',
+  ogTitle: 'Stars - 个人网站',
   ogDescription: '个人博客、项目展示与知识库',
   twitterCard: 'summary_large_image',
 })
@@ -26,7 +26,7 @@ const navItems = [
     <UHeader>
       <template #left>
         <NuxtLink to="/" class="font-bold text-lg tracking-tight">
-          你的名字
+          Stars
         </NuxtLink>
 
         <UNavigationMenu :items="navItems" class="ml-8" />
@@ -44,7 +44,7 @@ const navItems = [
     <UFooter>
       <template #left>
         <p class="text-sm text-neutral-500">
-          &copy; {{ new Date().getFullYear() }} 你的名字
+          &copy; {{ new Date().getFullYear() }} Stars
         </p>
       </template>
     </UFooter>

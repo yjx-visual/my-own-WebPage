@@ -6,6 +6,13 @@ export default defineNuxtConfig({
     '@nuxt/content',
   ],
 
+  fonts: {
+    providers: {
+      google: false,
+      googleicons: false,
+    },
+  },
+
   content: {
     database: {
       type: 'libsql',
