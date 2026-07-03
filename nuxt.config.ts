@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
 
   site: {
-    url: 'https://xxx.netlify.app',
+    url: 'https://starswebpage.netlify.app',
     name: 'Stars - 个人网站',
   },
 
