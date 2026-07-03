@@ -4,7 +4,13 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/content',
+    '@nuxtjs/sitemap',
   ],
+
+  site: {
+    url: 'https://xxx.netlify.app',
+    name: 'Stars - 个人网站',
+  },
 
   fonts: {
     providers: {

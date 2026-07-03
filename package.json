@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
+    "@nuxtjs/sitemap": "^8.2.2",
     "@tailwindcss/typography": "^0.5.20",
     "eslint": "^10.6.0",
     "typescript": "^6.0.3",
