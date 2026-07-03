@@ -1,0 +1,11 @@
+allowBuilds:
+  '@parcel/watcher': false
+  '@tailwindcss/oxide': false
+  better-sqlite3: true
+  esbuild: false
+  unrs-resolver: false
+  vue-demi: false
+minimumReleaseAgeExclude:
+  - '@nuxt/content@3.15.0'
+  - '@nuxtjs/mdc@0.22.1'
+  - remark-mdc@3.11.1
