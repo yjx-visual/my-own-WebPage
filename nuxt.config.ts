@@ -4,36 +4,18 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/content',
-    '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap'
   ],
 
-  site: {
-    url: 'https://starswebpage.netlify.app',
-    name: 'Stars - 个人网站',
-  },
-
-  fonts: {
-    providers: {
-      google: false,
-      googleicons: false,
-    },
-  },
-
-  content: {
-    database: {
-      type: 'libsql',
-      url: ':memory:',
-    },
-  },
-
   devtools: {
-    enabled: true
+    enabled: false
   },
 
   css: ['~/assets/css/main.css'],
 
-  nitro: {
-    preset: 'netlify',
+  site: {
+    url: 'https://jaceyou.com',
+    name: 'JaceYou - Developer'
   },
 
   routeRules: {
@@ -44,10 +26,14 @@ export default defineNuxtConfig({
     '/projects/**': { swr: 86400 },
     '/knowledge': { swr: 3600 },
     '/knowledge/**': { swr: 86400 },
-    '/about': { prerender: true },
+    '/about': { prerender: true }
   },
 
   compatibilityDate: '2026-06-30',
+
+  nitro: {
+    preset: 'netlify'
+  },
 
   eslint: {
     config: {
@@ -55,6 +41,13 @@ export default defineNuxtConfig({
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+
+  fonts: {
+    providers: {
+      google: false,
+      googleicons: false
     }
   }
 })

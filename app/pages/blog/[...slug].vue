@@ -1,61 +1,58 @@
 <template>
   <article>
-    <UContainer class="py-12">
-      <div class="max-w-3xl mx-auto">
-        <NuxtLink
-          to="/blog"
-          class="inline-flex items-center text-sm text-neutral-500 hover:text-(--ui-primary) transition-colors mb-6"
-        >
-          ← 返回博客列表
-        </NuxtLink>
+    <div class="max-w-3xl mx-auto px-6 py-12">
+      <NuxtLink
+        to="/blog"
+        class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors mb-6"
+      >
+        ← 返回博客
+      </NuxtLink>
 
-        <h1 class="text-4xl font-bold tracking-tight">{{ post.title }}</h1>
-
-        <div class="flex items-center gap-3 mt-4 text-sm text-neutral-500">
+      <div class="glass p-8 mb-8">
+        <h1 class="text-3xl font-bold tracking-tight font-mono">
+          {{ post.title }}
+        </h1>
+        <div class="flex items-center gap-3 mt-4 text-xs font-mono text-neutral-400">
           <span>{{ formatDate(post.date) }}</span>
           <span v-if="post.tags?.length">·</span>
-          <UBadge
+          <span
             v-for="tag in post.tags"
             :key="tag"
-            :label="tag"
-            variant="soft"
-            size="sm"
-          />
+            class="text-neutral-600 dark:text-neutral-300"
+          >#{{ tag }}</span>
         </div>
-
-        <p class="mt-4 text-lg text-neutral-500">{{ post.description }}</p>
+        <p class="mt-4 text-neutral-400 leading-relaxed">
+          {{ post.description }}
+        </p>
       </div>
-    </UContainer>
+    </div>
 
-    <UContainer>
-      <div class="max-w-3xl mx-auto prose dark:prose-invert pb-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="glass p-8 prose dark:prose-invert max-w-none pb-12">
         <ContentRenderer :value="post" />
       </div>
-    </UContainer>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-6 py-12 text-center">
+      <NuxtLink
+        to="/blog"
+        class="glass-sm px-5 py-2 font-mono text-sm text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors"
+      >
+        ← 返回博客
+      </NuxtLink>
+    </div>
   </article>
 </template>
 
 <script setup>
 const route = useRoute()
-
-const { data: post } = await useAsyncData(`blog-${route.params.slug}`, () =>
-  queryCollection('blog').path(route.params.slug).first(),
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
+const { data: post } = await useAsyncData(`blog-${slug}`, () =>
+  queryCollection('blog').where('stem', '=', `blog/${slug}`).first()
 )
-
-if (!post.value) {
-  throw createError({ statusCode: 404, message: '文章未找到' })
-}
-
-useSeoMeta({
-  title: post.value.title,
-  description: post.value.description,
-})
-
+if (!post.value) throw createError({ statusCode: 404, message: '文章未找到' })
+useSeoMeta({ title: post.value.title, description: post.value.description })
 function formatDate(date) {
-  return new Date(date).toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  return new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 </script>

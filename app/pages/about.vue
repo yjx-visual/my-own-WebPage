@@ -1,51 +1,75 @@
 <template>
-  <UContainer class="py-16">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-4xl font-bold">关于我</h1>
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold font-mono tracking-tight">
+        关于
+      </h1>
+    </div>
 
-      <div class="prose dark:prose-invert mt-8">
-        <p>
-          你好！我是一名全栈开发者，专注于 Vue 生态和 Node.js 技术栈。
-          我热爱开源，喜欢用代码创造有用的工具，也享受分享知识的过程。
+    <div class="space-y-6">
+      <div class="glass p-6">
+        <p class="text-sm leading-relaxed">
+          你好！我是 <strong>Jace</strong>，一名前端开发者，
+          专注于 Vue 生态和 TypeScript 技术栈。
+          热爱用代码创造有用的工具，也享受分享知识的过程。
         </p>
+      </div>
 
-        <h2>技能</h2>
-        <div class="flex flex-wrap gap-2 not-prose">
-          <UBadge variant="soft" label="Vue 3" />
-          <UBadge variant="soft" label="TypeScript" />
-          <UBadge variant="soft" label="Nuxt 3" />
-          <UBadge variant="soft" label="Node.js" />
-          <UBadge variant="soft" label="Tailwind CSS" />
-          <UBadge variant="soft" label="Git" />
+      <div class="glass p-6">
+        <h2 class="font-mono text-xs text-neutral-400 mb-3">
+          $ cat skills.json
+        </h2>
+        <div class="flex flex-wrap gap-1.5">
+          <span
+            v-for="skill in skills"
+            :key="skill"
+            class="text-xs font-mono px-2.5 py-1 rounded-md glass-sm"
+          >{{ skill }}</span>
         </div>
+      </div>
 
-        <h2>关于本站</h2>
-        <p>
-          这个网站由 Nuxt 3 + Nuxt UI 构建，内容通过 @nuxt/content 管理，
-          部署在 Netlify 上。博客记录我的技术思考，知识库是我的个人笔记。
+      <div class="glass p-6">
+        <h2 class="font-mono text-xs text-neutral-400 mb-3">
+          $ cat stack.txt
+        </h2>
+        <p class="text-sm text-neutral-500">
+          本站由 Nuxt 3 + Nuxt UI 构建，部署在 Netlify 上。
         </p>
+      </div>
 
-        <h2>联系我</h2>
-        <div class="flex gap-3 not-prose">
-          <UButton
-            to="https://github.com"
+      <div class="glass p-6">
+        <h2 class="font-mono text-xs text-neutral-400 mb-3">
+          $ cat contact.txt
+        </h2>
+        <div class="flex gap-4">
+          <a
+            href="https://github.com"
             target="_blank"
-            variant="outline"
-            icon="i-simple-icons-github"
-            label="GitHub"
-          />
-          <UButton
-            to="mailto:your@email.com"
-            variant="outline"
-            icon="i-lucide-mail"
-            label="Email"
-          />
+            class="glass-sm px-4 py-2 flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors"
+          >
+            <UIcon
+              name="i-simple-icons-github"
+              class="w-4 h-4"
+            />
+            <span class="font-mono text-xs">GitHub</span>
+          </a>
+          <a
+            href="mailto:your@email.com"
+            class="glass-sm px-4 py-2 flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors"
+          >
+            <UIcon
+              name="i-lucide-mail"
+              class="w-4 h-4"
+            />
+            <span class="font-mono text-xs">Email</span>
+          </a>
         </div>
       </div>
     </div>
-  </UContainer>
+  </div>
 </template>
 
 <script setup>
-useSeoMeta({ title: '关于我' })
+useSeoMeta({ title: '关于' })
+const skills = ['Vue 3', 'Nuxt', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Git', 'Vite', 'Element Plus', 'pnpm']
 </script>

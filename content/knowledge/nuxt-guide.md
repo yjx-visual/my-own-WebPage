@@ -2,7 +2,7 @@
 title: Nuxt 3 项目搭建指南
 description: 从零开始搭建 Nuxt 3 项目的完整步骤
 date: 2026-06-10
-category: guides
+category: frontend
 tags: [nuxt, vue, setup]
 difficulty: beginner
 order: 1

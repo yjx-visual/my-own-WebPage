@@ -1,120 +1,99 @@
 <template>
-  <UContainer class="py-12">
-    <div class="max-w-3xl mx-auto mb-12">
-      <h1 class="text-4xl font-bold mb-2">项目</h1>
-      <p class="text-neutral-500">开源项目与个人作品集</p>
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold font-mono tracking-tight">
+        项目
+      </h1>
+      <p class="text-sm text-neutral-400 mt-2">
+        开源项目与个人作品集
+      </p>
     </div>
 
-    <!-- 状态筛选 -->
-    <div class="max-w-3xl mx-auto mb-8 flex gap-2 flex-wrap">
-      <UBadge
-        v-for="s in statuses"
-        :key="s.value"
-        :label="s.label"
-        :variant="selectedStatus === s.value ? 'solid' : 'subtle'"
-        :color="selectedStatus === s.value ? 'primary' : 'neutral'"
-        class="cursor-pointer"
-        @click="selectedStatus = s.value"
-      />
-    </div>
-
-    <!-- 项目列表 -->
-    <div v-if="filteredProjects?.length" class="max-w-3xl mx-auto">
-      <div class="space-y-6">
-        <UCard v-for="project in filteredProjects" :key="project.id">
-          <UBadge
-            :label="statusLabel(project.status)"
-            :color="statusColor(project.status)"
-            variant="soft"
-            size="sm"
-            class="mb-2"
-          />
-
-          <NuxtLink
-            :to="`/projects/${project.path}`"
-            class="block font-semibold text-xl hover:underline"
-          >
-            {{ project.title }}
-          </NuxtLink>
-
-          <p class="text-sm text-neutral-500 mt-2 line-clamp-2">
+    <div
+      v-if="filteredProjects?.length"
+      class="glass p-6"
+    >
+      <template
+        v-for="(project, i) in filteredProjects"
+        :key="project.id"
+      >
+        <div
+          v-if="i > 0"
+          class="border-b border-black/5 dark:border-white/5 my-1"
+        />
+        <div class="py-4 -mx-3 px-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-1.5 h-1.5 rounded-full shrink-0 bg-neutral-400" />
+            <NuxtLink
+              :to="`/projects/${project.stem.split('/').pop()}`"
+              class="text-sm font-medium link-underline"
+            >
+              {{ project.title }}
+            </NuxtLink>
+            <span class="text-[10px] font-mono text-neutral-400 px-1.5 py-0.5 rounded border border-black/10 dark:border-white/10">
+              {{ statusLabel(project.status) }}
+            </span>
+          </div>
+          <p class="text-xs text-neutral-400 ml-4">
             {{ project.description }}
           </p>
-
-          <div v-if="project.techStack?.length" class="flex flex-wrap gap-1 mt-3">
-            <UBadge
+          <div
+            v-if="project.techStack?.length"
+            class="flex flex-wrap gap-1 ml-4 mt-2"
+          >
+            <span
               v-for="tech in project.techStack"
               :key="tech"
-              :label="tech"
-              variant="subtle"
-              size="sm"
-            />
+              class="text-[10px] font-mono text-neutral-400"
+            >#{{ tech }}</span>
           </div>
-
-          <div class="flex gap-3 mt-4">
-            <UButton
+          <div class="flex gap-4 ml-4 mt-2">
+            <a
               v-if="project.url"
-              :to="project.url"
+              :href="project.url"
               target="_blank"
-              variant="outline"
-              size="sm"
-              icon="i-lucide-external-link"
-              label="在线演示"
-            />
-            <UButton
+              class="text-xs font-mono text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors flex items-center gap-1"
+            >
+              <UIcon
+                name="i-lucide-external-link"
+                class="w-3 h-3"
+              /> demo
+            </a>
+            <a
               v-if="project.repo"
-              :to="project.repo"
+              :href="project.repo"
               target="_blank"
-              variant="outline"
-              size="sm"
-              icon="i-simple-icons-github"
-              label="源代码"
-            />
+              class="text-xs font-mono text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors flex items-center gap-1"
+            >
+              <UIcon
+                name="i-simple-icons-github"
+                class="w-3 h-3"
+              /> source
+            </a>
           </div>
-        </UCard>
-      </div>
+        </div>
+      </template>
     </div>
-
-    <p v-else class="text-neutral-500 text-center py-12">
-      还没有项目，敬请期待～
+    <p
+      v-else
+      class="glass p-12 text-center font-mono text-sm text-neutral-400"
+    >
+      // 还没有项目
     </p>
-  </UContainer>
+  </div>
 </template>
 
 <script setup>
 useSeoMeta({ title: '项目', description: '开源项目与个人作品集' })
-
 const selectedStatus = ref('all')
-
-const statuses = [
-  { value: 'all', label: '全部' },
-  { value: 'active', label: '进行中' },
-  { value: 'completed', label: '已完成' },
-  { value: 'archived', label: '已归档' },
-  { value: 'planned', label: '计划中' },
-]
-
 const { data: projects } = await useAsyncData('projects-all', () =>
-  queryCollection('projects').order('date', 'DESC').all(),
+  queryCollection('projects').order('date', 'DESC').all()
 )
-
 const filteredProjects = computed(() => {
   if (selectedStatus.value === 'all') return projects.value
-  return projects.value?.filter((p) => p.status === selectedStatus.value)
+  return projects.value?.filter(p => p.status === selectedStatus.value)
 })
-
-const statusMap = {
-  completed: { color: 'success', label: '已完成' },
-  active: { color: 'primary', label: '进行中' },
-  archived: { color: 'neutral', label: '已归档' },
-  planned: { color: 'warning', label: '计划中' },
-}
-
-function statusColor(s) {
-  return statusMap[s]?.color || 'neutral'
-}
-
 function statusLabel(s) {
-  return statusMap[s]?.label || s
+  return { completed: '已完成', active: '进行中', archived: '已归档', planned: '计划中' }[s] || s
 }
 </script>

@@ -12,8 +12,8 @@ export default defineContentConfig({
         tags: z.array(z.string()).default([]),
         image: z.string().optional(),
         featured: z.boolean().default(false),
-        draft: z.boolean().default(false),
-      }),
+        draft: z.boolean().default(false)
+      })
     }),
     projects: defineCollection({
       type: 'page',
@@ -28,8 +28,8 @@ export default defineContentConfig({
         status: z.enum(['completed', 'active', 'archived', 'planned']).default('completed'),
         url: z.string().optional(),
         repo: z.string().optional(),
-        techStack: z.array(z.string()).optional(),
-      }),
+        techStack: z.array(z.string()).optional()
+      })
     }),
     knowledge: defineCollection({
       type: 'page',
@@ -41,8 +41,8 @@ export default defineContentConfig({
         category: z.string(),
         tags: z.array(z.string()).default([]),
         difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
-        order: z.number().default(0),
-      }),
-    }),
-  },
+        order: z.number().default(0)
+      })
+    })
+  }
 })

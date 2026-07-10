@@ -2,7 +2,7 @@
 title: Git 常用命令速查
 description: 日常开发中高频使用的 Git 命令汇总
 date: 2026-05-15
-category: reference
+category: tools
 tags: [git, cheatsheet]
 difficulty: beginner
 order: 1

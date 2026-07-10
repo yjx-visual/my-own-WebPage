@@ -1,46 +1,58 @@
 ---
-title: TypeScript 高级类型技巧
-description: 总结日常开发中常用的 TypeScript 高级类型用法，包括条件类型、映射类型、模板字面量类型等。
-date: 2026-06-20
-tags: [typescript, frontend]
-draft: false
+title: TypeScript 实用技巧
+description: 分享几个日常开发中常用的 TypeScript 技巧，包括类型推导、工具类型和泛型约束。
+date: 2026-06-28
+tags: [typescript, javascript, tips]
+featured: false
 ---
 
-## 条件类型
+## 善用类型推导
 
-条件类型根据条件选择不同的类型：
+TypeScript 能自动推导大多数场景，不必过度声明类型：
 
 ```ts
-type IsString<T> = T extends string ? true : false
+// ❌ 多余的声明
+const name: string = 'hello'
 
-type A = IsString<'hello'>  // true
-type B = IsString<42>       // false
+// ✅ 自动推导
+const name = 'hello'
 ```
 
-## 映射类型
+## 工具类型
 
-基于已有类型创建新类型：
+### Partial&lt;T&gt;
 
 ```ts
-type Readonly<T> = {
-  readonly [K in keyof T]: T[K]
+interface User {
+  name: string
+  age: number
+  email: string
 }
 
-type Partial<T> = {
-  [K in keyof T]?: T[K]
+function updateUser(id: string, patch: Partial<User>) {
+  // patch 的所有字段都是可选的
 }
 ```
 
-## 模板字面量类型
-
-对字符串字面量类型做模式匹配：
+### Pick&lt;T, K&gt; & Omit&lt;T, K&gt;
 
 ```ts
-type EventName<T extends string> = `on${Capitalize<T>}`
-
-type Click = EventName<'click'>  // 'onClick'
+type UserBasic = Pick<User, 'name' | 'email'>
+type UserWithoutEmail = Omit<User, 'email'>
 ```
 
-## 实用工具类型
+## 泛型约束
 
-TypeScript 内置了很多实用的工具类型，如 `Pick`, `Omit`, `Exclude`, `Extract` 等。
+```ts
+function getLength<T extends { length: number }>(arg: T): number {
+  return arg.length
+}
+
+getLength('hello')  // ✅
+getLength([1, 2, 3]) // ✅
+getLength(123)       // ❌ number 没有 length
+```
+
+## 小结
+
+TypeScript 的类型系统非常强大，掌握这些工具类型能让代码更安全、更简洁。

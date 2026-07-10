@@ -1,31 +1,30 @@
 ---
-title: Markdown Editor
-description: 一个基于 ProseMirror 的 Markdown 编辑器，支持实时预览、语法高亮和自定义扩展。
-date: 2026-06-15
-tags: [vue, editor, markdown]
+title: JaceYou 个人网站
+description: 基于 Nuxt 3 + Nuxt UI 构建的个人网站，展示博客、项目和知识库。
+date: 2026-07-10
+tags: [nuxt, vue, typescript, personal-site]
 featured: true
 status: active
-url: https://editor.example.com
-repo: https://github.com/user/markdown-editor
-techStack: [Vue 3, TypeScript, ProseMirror, Node.js]
+url: https://jaceyou.com
+repo: https://github.com/jaceyou/jaceyou.com
+techStack: [Nuxt 3, Vue 3, TypeScript, Tailwind CSS, Netlify]
 ---
 
 ## 项目背景
 
-在日常写作中，我需要一个支持 Markdown 语法的编辑器。市面上的方案要么太重量级，要么定制性不够。于是我基于 ProseMirror 构建了这款编辑器。
+需要一个属于自己的展示空间——既能写博客记录思考，也能展示项目作品，还能整理知识笔记。
 
-## 核心功能
+## 技术方案
 
-- 实时 Markdown 渲染预览
-- 代码块语法高亮
-- 自定义扩展系统
-- 键盘快捷键支持
-- 暗色模式适配
+选择了 **Nuxt 3** 作为框架，基于以下考虑：
 
-## 技术选型
+- 文件路由 + 自动导入，开发体验流畅
+- @nuxt/content 让 Markdown 写作零摩擦
+- @nuxt/ui 提供高质量组件，专注内容而非 UI
+- Netlify 自动部署，push 即上线
 
-ProseMirror 是编辑器领域最成熟的框架之一，提供了：
+## 功能模块
 
-- 强大的 Schema 系统
-- 事务性编辑模型
-- Plugin 架构便于扩展
+- 📝 **博客** — Markdown 写作，标签分类，日期时间线
+- 🚀 **项目** — 作品展示，技术栈标签，状态管理
+- 📚 **知识库** — 分类整理，难度标记，搜索跳转

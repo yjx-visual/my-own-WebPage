@@ -5,7 +5,7 @@ date: 2026-05-10
 tags: [nodejs, cli, tool]
 featured: false
 status: completed
-repo: https://github.com/user/task-runner
+repo: https://github.com/jaceyou/task-runner
 techStack: [TypeScript, Node.js, zod]
 ---
 

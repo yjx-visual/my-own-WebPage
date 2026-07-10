@@ -1,7 +1,7 @@
 ---
 title: 使用 Nuxt 3 + Nuxt UI 搭建个人网站
 description: 一篇完整的教程，带你从零开始用 Nuxt 3 和 Nuxt UI 搭建现代化个人网站，支持暗色模式、响应式布局。
-date: 2026-07-03
+date: 2026-07-10
 tags: [nuxt, vue, typescript, tutorial]
 featured: true
 ---

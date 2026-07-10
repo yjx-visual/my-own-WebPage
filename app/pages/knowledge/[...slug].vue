@@ -1,66 +1,63 @@
 <template>
   <article>
-    <UContainer class="py-12">
-      <div class="max-w-3xl mx-auto">
-        <NuxtLink
-          to="/knowledge"
-          class="inline-flex items-center text-sm text-neutral-500 hover:text-(--ui-primary) transition-colors mb-6"
-        >
-          ← 返回知识库
-        </NuxtLink>
-
+    <div class="max-w-3xl mx-auto px-6 py-12">
+      <NuxtLink
+        to="/knowledge"
+        class="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors mb-6"
+      >
+        ← 返回知识库
+      </NuxtLink>
+      <div class="glass p-8 mb-8">
         <div class="flex items-center gap-2 mb-4">
-          <UBadge :label="article.category" variant="soft" color="primary" size="sm" />
-          <UBadge
+          <span class="text-xs font-mono px-2 py-0.5 rounded-md glass-sm text-neutral-500">{{ article.category }}</span>
+          <span
             v-if="article.difficulty"
-            :label="difficultyLabel(article.difficulty)"
-            variant="subtle"
-            size="sm"
-          />
+            class="text-xs font-mono px-2 py-0.5 rounded-md glass-sm text-neutral-500"
+          >{{ difficultyLabel(article.difficulty) }}</span>
         </div>
-
-        <h1 class="text-4xl font-bold tracking-tight">{{ article.title }}</h1>
-
-        <p v-if="article.description" class="mt-4 text-lg text-neutral-500">
+        <h1 class="text-3xl font-bold tracking-tight font-mono">
+          {{ article.title }}
+        </h1>
+        <p
+          v-if="article.description"
+          class="mt-4 text-neutral-400 leading-relaxed"
+        >
           {{ article.description }}
         </p>
-
-        <div v-if="article.tags?.length" class="flex flex-wrap gap-2 mt-4">
-          <UBadge
+        <div
+          v-if="article.tags?.length"
+          class="flex flex-wrap gap-1 mt-4"
+        >
+          <span
             v-for="tag in article.tags"
             :key="tag"
-            :label="tag"
-            variant="soft"
-            size="sm"
-          />
+            class="text-[10px] font-mono text-neutral-400"
+          >#{{ tag }}</span>
         </div>
       </div>
-    </UContainer>
-
-    <UContainer>
-      <div class="max-w-3xl mx-auto prose dark:prose-invert pb-16">
+    </div>
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="glass p-8 prose dark:prose-invert max-w-none pb-12">
         <ContentRenderer :value="article" />
       </div>
-    </UContainer>
+    </div>
+    <div class="max-w-3xl mx-auto px-6 py-12 text-center">
+      <NuxtLink
+        to="/knowledge"
+        class="glass-sm px-5 py-2 font-mono text-sm text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors"
+      >← 返回知识库</NuxtLink>
+    </div>
   </article>
 </template>
 
 <script setup>
 const route = useRoute()
-
-const { data: article } = await useAsyncData(`knowledge-${route.params.slug}`, () =>
-  queryCollection('knowledge').path(route.params.slug).first(),
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug
+const { data: article } = await useAsyncData(`knowledge-${slug}`, () =>
+  queryCollection('knowledge').where('stem', '=', `knowledge/${slug}`).first()
 )
-
-if (!article.value) {
-  throw createError({ statusCode: 404, message: '文章未找到' })
-}
-
-useSeoMeta({
-  title: article.value.title,
-  description: article.value.description,
-})
-
+if (!article.value) throw createError({ statusCode: 404, message: '文章未找到' })
+useSeoMeta({ title: article.value.title, description: article.value.description })
 function difficultyLabel(d) {
   return { beginner: '入门', intermediate: '进阶', advanced: '高级' }[d] || d
 }
