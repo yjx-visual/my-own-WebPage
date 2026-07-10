@@ -23,7 +23,7 @@ const navItems = [
 
 <template>
   <UApp>
-    <TsparticleBg preset="stars" />
+    <ParticleBg />
     <!-- 玻璃态导航栏 -->
     <header class="sticky top-0 z-50 glass-sm border-b border-black/5 dark:border-white/5 rounded-none">
       <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
