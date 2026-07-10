@@ -1,7 +1,7 @@
 [build]
   publish = "dist"
   command = "pnpm run build"
-  environment = { NODE_VERSION = "22", NODE_OPTIONS = "--max-old-space-size=4096" }
+  environment = { NODE_VERSION = "22", NODE_OPTIONS = "--max-old-space-size=8192" }
 
 [[headers]]
   for = "/_nuxt/*"
